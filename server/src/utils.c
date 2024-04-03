@@ -19,13 +19,17 @@ int iniciar_servidor(void)
 	getaddrinfo(NULL, PUERTO, &hints, &servinfo);
 
 	// Creamos el socket de escucha del servidor
-
+	socket_servidor=socket(servinfo->ai_family,servinfo->ai_socktype,servinfo->ai_protocol)
+	
+	bind(socket_servidor,servinfo->ai_addr, servinfo->ai_addrlen);
+	
 	// Asociamos el socket a un puerto
 
 	// Escuchamos las conexiones entrantes
 
 	freeaddrinfo(servinfo);
 	log_trace(logger, "Listo para escuchar a mi cliente");
+	
 
 	return socket_servidor;
 }
