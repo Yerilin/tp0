@@ -20,23 +20,29 @@ int crear_conexion(char *ip, char* puerto)
 {
 	struct addrinfo hints;
 	struct addrinfo *server_info;
+	int er;
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
+	//hints.ai_flags = AI_PASSIVE; --segun la guia es mejor sacar esta asignación para un socket de conexión
 
 	getaddrinfo(ip, puerto, &hints, &server_info);
 
 	// Ahora vamos a crear el socket.
-	int socket_cliente = 0;
+	int socket_conexiion= socket(server_info->ai_family,server_info->ai_socktype,server_info->ai_protocol);
 
 	// Ahora que tenemos el socket, vamos a conectarlo
+	er = connect(socket_conexiion, server_info->ai_addr, server_info->ai_addrlen);
 
+	if(er==-1){
+		perror("Error al tratar de conectar con el servidfor")
+		exit(1)
+	}
 
 	freeaddrinfo(server_info);
 
-	return socket_cliente;
+	return socket_conexiion;
 }
 
 void enviar_mensaje(char* mensaje, int socket_cliente)
