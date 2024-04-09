@@ -36,8 +36,8 @@ int crear_conexion(char *ip, char* puerto)
 	er = connect(socket_conexiion, server_info->ai_addr, server_info->ai_addrlen);
 
 	if(er==-1){
-		perror("Error al tratar de conectar con el servidfor")
-		exit(1)
+		perror("Error al tratar de conectar con el servidor");
+		exit(1);
 	}
 
 	freeaddrinfo(server_info);
